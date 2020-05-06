@@ -1,32 +1,22 @@
 package anup.springlearn.recipe.controllers;
 
-import anup.springlearn.recipe.model.Category;
-import anup.springlearn.recipe.model.UnitOfMeasure;
-import anup.springlearn.recipe.repositories.CategoryRepository;
-import anup.springlearn.recipe.repositories.UnitOfMesaurementRepository;
+import anup.springlearn.recipe.service.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 @Controller
 public class IndexController {
 
-    private final CategoryRepository categoryRepository;
-    private final UnitOfMesaurementRepository unitOfMesaurementRepository;
+    private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMesaurementRepository unitOfMesaurementRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMesaurementRepository = unitOfMesaurementRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"/","","/index"})
-    public String getIndexPage(){
-        Optional<Category> category =  categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> uom = unitOfMesaurementRepository.findByDescription("TeaSpoon");
-
-        System.out.println(category.get().getId());
-        System.out.println(uom.get().getId());
+    public String getIndexPage(Model model){
+        model.addAttribute("recipes",recipeService.findAllRecipes());
         return "index";
     }
 
