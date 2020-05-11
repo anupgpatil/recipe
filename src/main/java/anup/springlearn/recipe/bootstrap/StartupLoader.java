@@ -4,6 +4,7 @@ import anup.springlearn.recipe.model.*;
 import anup.springlearn.recipe.repositories.CategoryRepository;
 import anup.springlearn.recipe.repositories.RecipeRepository;
 import anup.springlearn.recipe.repositories.UnitOfMesaurementRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class StartupLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -26,18 +28,9 @@ public class StartupLoader implements ApplicationListener<ContextRefreshedEvent>
         this.recipeRepository = recipeRepository;
     }
 
-    /*
-    * INSERT INTO category (description) VALUES ('American');
-INSERT INTO CATEGORY (description) VALUES ('Indian');
-INSERT INTO CATEGORY (description) VALUES ('Chinese');
-INSERT INTO CATEGORY (description) VALUES ('Italian');
-INSERT INTO CATEGORY (description) VALUES ('Mexican');
-INSERT INTO UNIT_OF_MEASURE (description) VALUES ('TeaSpoon');
-INSERT INTO UNIT_OF_MEASURE (description) VALUES ('TableSpoon');
-INSERT INTO UNIT_OF_MEASURE (description) VALUES ('Grams');
-INSERT INTO UNIT_OF_MEASURE (description) VALUES ('Ounces');*/
-
     public List<Recipe> getRecipes() {
+
+        log.info("Logging via Bootstrap Data.");
 
         List<Recipe> listRecipes =new ArrayList<>();
 
@@ -94,7 +87,9 @@ INSERT INTO UNIT_OF_MEASURE (description) VALUES ('Ounces');*/
         guacamole.setNotes(guacNotes);
 
         listRecipes.add(guacamole);
+        log.info("COmpleted Logging");
         return listRecipes;
+
     }
 
     @Override
