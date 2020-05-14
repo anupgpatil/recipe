@@ -1,12 +1,13 @@
 package anup.springlearn.recipe.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"ingredients","categories"})
 @Entity
 public class Recipe {
 
@@ -42,10 +43,7 @@ public class Recipe {
         inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    public void setNotes(Notes notes) {
-
-        this.notes = notes;
-        notes.setRecipe(this);
+    public Recipe() {
     }
 
     public Recipe addIngredient(Ingredient ingredient){
@@ -53,4 +51,5 @@ public class Recipe {
         this.ingredients.add(ingredient);
         return this;
     }
+
 }
