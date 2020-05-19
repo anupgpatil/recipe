@@ -88,6 +88,43 @@ public class StartupLoader implements ApplicationListener<ContextRefreshedEvent>
         guacamole.setNotes(guacNotes);
 
         listRecipes.add(guacamole);
+
+
+
+
+        Recipe guacamole2 = new Recipe();
+        guacamole2.setDifficulty(Difficulty.EASY);
+        guacamole2.setDescription("Perfect Guacamole Part 2");
+        guacamole2.setCooktime(0);
+        guacamole2.setPreptime(20);
+        guacamole2.setDirections("1 Cut the avocado, remove flesh: Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. "+
+                "\n 2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)"+
+                "\n 3 Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
+                "\n" +
+                "Add the chopped onion, cilantro, black pepper, and chiles. Chili peppers vary individually in their hotness. So, start with a half of one chili pepper and add to the guacamole to your desired degree of hotness.\n" +
+                "\n" +
+                "Remember that much of this is done to taste because of the variability in the fresh ingredients. Start with this recipe and adjust to your taste.\n" +
+                "\n" +
+                "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving."+
+                "\n 4 Serve: Serve immediately, or if making a few hours ahead, place plastic wrap on the surface of the guacamole and press down to cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.");
+
+        guacamole2.getCategories().add(americanCategory);
+        guacamole2.getCategories().add(mexCategory);
+
+        guacamole2.getIngredients().add(new Ingredient("Ripe Avocados",new BigDecimal(2), ctUOM, guacamole));
+        guacamole2.getIngredients().add(new Ingredient("Minced Onion",new BigDecimal(.5),ctUOM, guacamole));
+        guacamole2.getIngredients().add(new Ingredient("Salt",new BigDecimal(.5),teaSpoonUOM, guacamole));
+        guacamole2.getIngredients().add(new Ingredient("Crushed Pepper",new BigDecimal(1),tbSpoonUOM, guacamole));
+        guacamole2.getIngredients().add(new Ingredient("Chopped Tomato",new BigDecimal(1),ctUOM, guacamole));
+        guacamole2.getIngredients().add(new Ingredient("Chopped Coriander",new BigDecimal(2),teaSpoonUOM, guacamole));
+
+        guacamole2.setServings(2);
+        Notes guacNotes2 = new Notes();
+        guacNotes2.setRecipe(guacamole2);
+        guacNotes2.setRecipeNotes("Be careful handling chiles if using. Wash your hands thoroughly after handling and do not touch your eyes or the area near your eyes with your hands for several hours");
+        guacamole2.setNotes(guacNotes);
+
+        listRecipes.add(guacamole2);
         log.info("COmpleted Logging");
         return listRecipes;
 
@@ -97,5 +134,7 @@ public class StartupLoader implements ApplicationListener<ContextRefreshedEvent>
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipes());
+        Long count = recipeRepository.count();
+        log.info(String.valueOf(count));
     }
 }

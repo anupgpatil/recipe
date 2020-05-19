@@ -1,6 +1,7 @@
 package anup.springlearn.recipe.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.HashSet;
