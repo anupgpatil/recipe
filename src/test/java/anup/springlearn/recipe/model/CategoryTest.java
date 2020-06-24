@@ -19,7 +19,7 @@ class CategoryTest {
     void getId() {
         Long idVal = 3L;
 
-        category.setId(4L);
+        category.setId(3L);
         Assertions.assertEquals(category.getId(),idVal);
         Assert.isTrue(category.getId().equals(idVal),"Id is Matching");
     }
